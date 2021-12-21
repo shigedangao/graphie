@@ -1,7 +1,7 @@
 import { Hospitalization } from "../entities/Hospitalization";
 import { Resolver, Query, Arg } from "type-graphql";
 import { HospitalizationInput } from "./types/hospitalization-input";
-import { hospitalizationGuideClient } from "../server";
+import { hospitalizationClient } from "../server";
 import { CareStatusInput } from "../proto/hospital/CareStatusInput";
 import { grpcCallback } from "../utils";
 import { CareStatusOutput__Output } from "../proto/hospital/CareStatusOutput";
@@ -16,7 +16,7 @@ export class HospitalizationResolver {
   ): Promise<Hospitalization[]> {
     const payload: CareStatusInput = {...arg};
     const res: CareStatusOutput__Output = await new Promise((resolve, reject) =>
-      hospitalizationGuideClient.getStatusByRegion(payload, (err, res) => grpcCallback<CareStatusOutput__Output>(err, res, resolve, reject)));
+      hospitalizationClient.getStatusByRegion(payload, (err, res) => grpcCallback<CareStatusOutput__Output>(err, res, resolve, reject)));
 
     const cases = res.cases?.map((c: CareStatusPayload__Output) => {
       let h = new Hospitalization();

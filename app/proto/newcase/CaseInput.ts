@@ -3,16 +3,16 @@
 
 export interface CaseInput {
   'department'?: (string);
-  'day'?: (number);
-  'month'?: (number);
+  'day'?: (string);
+  'month'?: (string);
   'year'?: (number);
   '_day'?: "day";
 }
 
 export interface CaseInput__Output {
   'department': (string);
-  'day'?: (number);
-  'month': (number);
+  'day'?: (string);
+  'month': (string);
   'year': (number);
   '_day': "day";
 }

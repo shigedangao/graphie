@@ -3,6 +3,15 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+"""Newcase model"""
+type Case {
+  date: String!
+  death: Float!
+  healed: Float!
+  new_entry_hospital: Float!
+  new_entry_icu: Float!
+}
+
 """Hospitalization model"""
 type Hospitalization {
   age: Float!
@@ -24,6 +33,14 @@ input HospitalizationInput {
   year: Float!
 }
 
+input NewCaseInput {
+  day: String
+  department: String!
+  month: String!
+  year: Float!
+}
+
 type Query {
+  getNewCaseByDepartment(data: NewCaseInput!): [Case!]
   getStatusByRegion(data: HospitalizationInput!): [Hospitalization!]
 }
