@@ -1,4 +1,4 @@
-# Graphie
+# Graphie (wip)
 
 Just a GraphQL server which interact with the mask repository which contains a set of gRPC server
 

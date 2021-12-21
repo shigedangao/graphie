@@ -1,6 +1,9 @@
 import { ServiceError } from "@grpc/grpc-js";
 
 /**
+ * GrpcCallback
+ *    Small generic decorator over the default gRPC client callback
+ *    The callback is also partially promisifying the gRPC callback
  *
  * @param err
  * @param res

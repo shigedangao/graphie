@@ -12,15 +12,9 @@ import { isNil } from "ramda";
 export class HospitalizationResolver {
   @Query((_returns) => [Hospitalization], { nullable: true })
   async getStatusByRegion(
-    @Arg('data') { }: HospitalizationInput
+    @Arg('data') arg: HospitalizationInput
   ): Promise<Hospitalization[]> {
-    const payload: CareStatusInput = {
-      day: "01",
-      month: "12",
-      year: 2021,
-      region: 94
-    };
-
+    const payload: CareStatusInput = {...arg};
     const res: CareStatusOutput__Output = await new Promise((resolve, reject) =>
       hospitalizationGuideClient.getStatusByRegion(payload, (err, res) => grpcCallback<CareStatusOutput__Output>(err, res, resolve, reject)));
 
