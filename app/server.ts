@@ -1,5 +1,4 @@
 import { ApolloServer } from 'apollo-server-express';
-import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import Express from 'express';
 import 'reflect-metadata';
 import { buildSchema } from 'type-graphql';
@@ -11,6 +10,7 @@ import { ProtoGrpcType as ProtoHospital } from './proto/hospitalization';
 import { ProtoGrpcType as ProtoNewCase } from './proto/newcase';
 import { CareStatusClient } from './proto/hospital/CareStatus';
 import { CaseServiceClient } from './proto/newcase/CaseService';
+import fs from 'fs'
 
 // constant
 const HOSPITAL_PROTO_PATH = `${__dirname}/../proto/hospitalization.proto`
@@ -31,6 +31,9 @@ export let newcaseClient: CaseServiceClient;
  *    Load protobuf definition for each protobuf
  */
 const loadProtobuf = async () => {
+  const rootCert = fs.readFileSync(`${__dirname}/../cert/ca-cert.pem`);
+  const sslCreds = credentials.createSsl(rootCert);
+
   const packageDefinition = await load([HOSPITAL_PROTO_PATH, NEWCASE_PROTO_PATH], PROTO_OPTION);
 
   const hospitalProtoDescriptor = (loadPackageDefinition(packageDefinition) as unknown) as ProtoHospital;
@@ -39,8 +42,8 @@ const loadProtobuf = async () => {
   const newcaseProtoDescriptor = (loadPackageDefinition(packageDefinition) as unknown) as ProtoNewCase;
   const newcase = newcaseProtoDescriptor.newcase;
 
-  hospitalizationClient = new hospital.CareStatus('[::1]:9000', credentials.createInsecure());
-  newcaseClient = new newcase.CaseService('[::1]:9000', credentials.createInsecure());
+  hospitalizationClient = new hospital.CareStatus('localhost:9000', sslCreds);
+  newcaseClient = new newcase.CaseService('localhost:9000', sslCreds);
 }
 
 const main = async () => {
@@ -58,7 +61,7 @@ const main = async () => {
 
   const server = new ApolloServer({
     schema,
-    plugins: [ApolloServerPluginLandingPageGraphQLPlayground]
+    plugins: []
   });
 
   const app = Express();

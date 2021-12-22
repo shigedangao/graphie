@@ -6,22 +6,22 @@ import type { CareStatusInput as _hospital_CareStatusInput, CareStatusInput__Out
 import type { CareStatusOutput as _hospital_CareStatusOutput, CareStatusOutput__Output as _hospital_CareStatusOutput__Output } from '../hospital/CareStatusOutput';
 
 export interface CareStatusClient extends grpc.Client {
-  getStatusByRegion(argument: _hospital_CareStatusInput, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
-  getStatusByRegion(argument: _hospital_CareStatusInput, metadata: grpc.Metadata, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
-  getStatusByRegion(argument: _hospital_CareStatusInput, options: grpc.CallOptions, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
-  getStatusByRegion(argument: _hospital_CareStatusInput, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
-  getStatusByRegion(argument: _hospital_CareStatusInput, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
-  getStatusByRegion(argument: _hospital_CareStatusInput, metadata: grpc.Metadata, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
-  getStatusByRegion(argument: _hospital_CareStatusInput, options: grpc.CallOptions, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
-  getStatusByRegion(argument: _hospital_CareStatusInput, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
+  getHospitalStatusByRegion(argument: _hospital_CareStatusInput, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
+  getHospitalStatusByRegion(argument: _hospital_CareStatusInput, metadata: grpc.Metadata, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
+  getHospitalStatusByRegion(argument: _hospital_CareStatusInput, options: grpc.CallOptions, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
+  getHospitalStatusByRegion(argument: _hospital_CareStatusInput, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
+  getHospitalStatusByRegion(argument: _hospital_CareStatusInput, metadata: grpc.Metadata, options: grpc.CallOptions, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
+  getHospitalStatusByRegion(argument: _hospital_CareStatusInput, metadata: grpc.Metadata, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
+  getHospitalStatusByRegion(argument: _hospital_CareStatusInput, options: grpc.CallOptions, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
+  getHospitalStatusByRegion(argument: _hospital_CareStatusInput, callback: grpc.requestCallback<_hospital_CareStatusOutput__Output>): grpc.ClientUnaryCall;
   
 }
 
 export interface CareStatusHandlers extends grpc.UntypedServiceImplementation {
-  getStatusByRegion: grpc.handleUnaryCall<_hospital_CareStatusInput__Output, _hospital_CareStatusOutput>;
+  getHospitalStatusByRegion: grpc.handleUnaryCall<_hospital_CareStatusInput__Output, _hospital_CareStatusOutput>;
   
 }
 
 export interface CareStatusDefinition extends grpc.ServiceDefinition {
-  getStatusByRegion: MethodDefinition<_hospital_CareStatusInput, _hospital_CareStatusOutput, _hospital_CareStatusInput__Output, _hospital_CareStatusOutput__Output>
+  getHospitalStatusByRegion: MethodDefinition<_hospital_CareStatusInput, _hospital_CareStatusOutput, _hospital_CareStatusInput__Output, _hospital_CareStatusOutput__Output>
 }

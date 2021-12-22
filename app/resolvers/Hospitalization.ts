@@ -16,7 +16,7 @@ export class HospitalizationResolver {
   ): Promise<Hospitalization[]> {
     const payload: CareStatusInput = {...arg};
     const res: CareStatusOutput__Output = await new Promise((resolve, reject) =>
-      hospitalizationClient.getStatusByRegion(payload, (err, res) => grpcCallback<CareStatusOutput__Output>(err, res, resolve, reject)));
+      hospitalizationClient.getHospitalStatusByRegion(payload, (err, res) => grpcCallback<CareStatusOutput__Output>(err, res, resolve, reject)));
 
     const cases = res.cases?.map((c: CareStatusPayload__Output) => {
       let h = new Hospitalization();
