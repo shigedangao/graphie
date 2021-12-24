@@ -1,7 +1,6 @@
 import { Field, ObjectType } from "type-graphql";
 import { From } from ".";
 import { PcrResult__Output } from "../proto/pcr/PcrResult";
-import { PcrResult } from "../proto/pcr/PcrResult";
 
 @ObjectType({ description: 'Pcr case result' })
 export class Pcr implements From<PcrResult__Output, Pcr> {

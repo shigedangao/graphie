@@ -5,7 +5,8 @@ import { buildSchema } from 'type-graphql';
 import { HospitalizationResolver } from './resolvers/Hospitalization';
 import { NewcaseResolver } from './resolvers/Newcase';
 import { loadProtobuf } from './proto';
-import { PcrDepartmentResolver } from './resolvers/Pcr';
+import { PcrResolver } from './resolvers/Pcr';
+import { PositivityResolver } from './resolvers/Positiviity';
 
 const main = async () => {
   // load protobuf and create the gRPC client
@@ -15,7 +16,8 @@ const main = async () => {
     resolvers: [
       HospitalizationResolver,
       NewcaseResolver,
-      PcrDepartmentResolver
+      PcrResolver,
+      PositivityResolver
     ],
     emitSchemaFile: true,
     validate: false

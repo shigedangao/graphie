@@ -19,6 +19,20 @@ input GraphPcrInputDep {
   year: Float!
 }
 
+input GraphPcrInputReg {
+  day: Float
+  month: Float!
+  region: Float!
+  year: Float!
+}
+
+input GraphPositivityInput {
+  day: Float
+  department: String!
+  month: Float!
+  year: Float!
+}
+
 """Hospitalization model"""
 type Hospitalization {
   age: Float!
@@ -63,8 +77,26 @@ type Pcr {
   totalPositivePcrTest: Float
 }
 
+"""Positivity cases"""
+type Positivity {
+  day: String!
+  department: String!
+  infectionRate: Float!
+  pcrPositive: Float!
+  populationReference: Float!
+}
+
+"""Positivity cases weekly"""
+type PositivityWeekly {
+  rates: [Positivity!]!
+  weekInfectionRate: Float!
+}
+
 type Query {
   getNewCaseByDepartment(data: NewCaseInput!): [Case!]
   getPcrTestMadeByDepartment(data: GraphPcrInputDep!): [Pcr!]
+  getPcrTestMadeByRegion(data: GraphPcrInputReg!): [Pcr!]
+  getPositivityByDepartmentPerDay(data: GraphPositivityInput!): [Positivity!]
+  getPositivityByDepartmentPerWeek(data: GraphPositivityInput!): PositivityWeekly
   getStatusByRegion(data: HospitalizationInput!): [Hospitalization!]
 }
