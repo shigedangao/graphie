@@ -1,7 +1,7 @@
-// Original file: proto/hospitalization.proto
+// Original file: proto/pcr.proto
 
 
-export interface CareStatusInput {
+export interface PcrInputRegion {
   'day'?: (number);
   'month'?: (number);
   'year'?: (number);
@@ -9,7 +9,7 @@ export interface CareStatusInput {
   '_day'?: "day";
 }
 
-export interface CareStatusInput__Output {
+export interface PcrInputRegion__Output {
   'day'?: (number);
   'month': (number);
   'year': (number);

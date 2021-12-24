@@ -12,6 +12,13 @@ type Case {
   new_entry_icu: Float!
 }
 
+input GraphPcrInputDep {
+  day: Float
+  department: String!
+  month: Float!
+  year: Float!
+}
+
 """Hospitalization model"""
 type Hospitalization {
   age: Float!
@@ -27,20 +34,37 @@ type Hospitalization {
 }
 
 input HospitalizationInput {
-  day: String
-  month: String!
+  day: Float
+  month: Float!
   region: Float!
   year: Float!
 }
 
 input NewCaseInput {
-  day: String
+  day: Float
   department: String!
-  month: String!
+  month: Float!
   year: Float!
+}
+
+"""Pcr case result"""
+type Pcr {
+  age: Float!
+  day: String!
+  department: String
+  pcrTestFemale: Float
+  pcrTestMale: Float
+  populationByDepartment: Float
+  populationByRegion: Float
+  positivePcrTestFemale: Float
+  positivePcrTestMale: Float
+  region: Float
+  totalPcrTestDone: Float
+  totalPositivePcrTest: Float
 }
 
 type Query {
   getNewCaseByDepartment(data: NewCaseInput!): [Case!]
+  getPcrTestMadeByDepartment(data: GraphPcrInputDep!): [Pcr!]
   getStatusByRegion(data: HospitalizationInput!): [Hospitalization!]
 }

@@ -1,7 +1,7 @@
 import { Hospitalization } from "../entities/Hospitalization";
 import { Resolver, Query, Arg } from "type-graphql";
 import { HospitalizationInput } from "./types/hospitalization-input";
-import { hospitalizationClient } from "../server";
+import { hospitalizationClient } from "../proto";
 import { CareStatusInput } from "../proto/hospital/CareStatusInput";
 import { grpcCallback } from "../utils";
 import { CareStatusOutput__Output } from "../proto/hospital/CareStatusOutput";

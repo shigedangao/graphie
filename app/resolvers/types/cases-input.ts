@@ -1,16 +1,8 @@
 import { InputType, Field } from "type-graphql";
+import { CommonField } from "./common-input";
 
 @InputType()
-export class NewCaseInput {
+export class NewCaseInput extends CommonField {
   @Field()
   department: string;
-
-  @Field({ nullable: true })
-  day?: string;
-
-  @Field()
-  month: string;
-
-  @Field()
-  year: number;
 }

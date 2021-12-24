@@ -2,7 +2,7 @@ import { Resolver, Query, Arg } from "type-graphql";
 import { NewCaseInput } from "./types/cases-input";
 import { Case } from "../entities/Case";
 import { CaseInput } from "../proto/newcase/CaseInput";
-import { newcaseClient } from "../server";
+import { newcaseClient } from "../proto";
 import { grpcCallback } from "../utils";
 import { NewCases__Output } from "../proto/newcase/NewCases";
 import { NewCase__Output } from "../proto/newcase/NewCase";

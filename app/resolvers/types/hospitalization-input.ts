@@ -1,16 +1,8 @@
 import { InputType, Field } from "type-graphql";
+import { CommonField } from "./common-input";
 
 @InputType()
-export class HospitalizationInput {
-  @Field({ nullable: true })
-  day?: string;
-
-  @Field()
-  month: string;
-
-  @Field()
-  year: number;
-
+export class HospitalizationInput extends CommonField {
   @Field()
   region: number;
 }
