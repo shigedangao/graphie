@@ -7,8 +7,10 @@ import { NewcaseResolver } from './resolvers/Newcase';
 import { loadProtobuf } from './proto';
 import { PcrResolver } from './resolvers/Pcr';
 import { PositivityResolver } from './resolvers/Positiviity';
+import { loadEnv } from './env';
 
 const main = async () => {
+  await loadEnv();
   // load protobuf and create the gRPC client
   await loadProtobuf();
 
@@ -29,6 +31,8 @@ const main = async () => {
   });
 
   const app = Express();
+
+  app.get('/', (_, res) => res.send('hello'))
 
   await server.start();
 

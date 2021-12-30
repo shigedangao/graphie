@@ -1,0 +1,43 @@
+syntax = "proto3";
+package pcr;
+
+service PcrServiceDepartment {
+    rpc getPcrTestMadeByDepartment(PcrInputDepartment) returns (PcrOutput);
+}
+
+service PcrServiceRegion {
+    rpc getPcrTestMadeByRegion(PcrInputRegion) returns (PcrOutput);
+}
+
+message PcrInputDepartment {
+    optional int32 day = 1;
+    int32 month = 2;
+    int32 year = 3;
+    string department = 4;
+}
+
+message PcrInputRegion {
+    optional int32 day = 1;
+    int32 month = 2;
+    int32 year = 3;
+    int32 region = 4;
+}
+
+message PcrResult {
+    string day = 1;
+    int64 age = 2;
+    optional int64 region = 3;
+    optional double population_by_region = 4;
+    optional int64 positive_pcr_test_male = 5;
+    optional int64 positive_pcr_test_female = 6;
+    optional int64 total_positive_pcr_test = 7;
+    optional int64 pcr_test_male = 8;
+    optional int64 pcr_test_female = 9;
+    optional int64 total_pcr_test_done = 10;
+    optional string department = 11;
+    optional double population_by_department = 12;
+}
+
+message PcrOutput {
+    repeated PcrResult pcr = 1;
+}

@@ -10,6 +10,7 @@ import { CaseServiceClient } from './proto/newcase/CaseService';
 import { PcrServiceDepartmentClient } from './proto/pcr/PcrServiceDepartment';
 import { PcrServiceRegionClient } from './proto/pcr/PcrServiceRegion';
 import { PositivityRateClient } from './proto/pos/PositivityRate';
+import { env } from './env';
 
 // constant
 const HOSPITAL_PROTO_PATH = `${__dirname}/../proto/hospitalization.proto`
@@ -36,7 +37,7 @@ export let posClient: PositivityRateClient;
  * @return {Promise}
  */
 export const loadProtobuf = async () => {
-  const rootCert = fs.readFileSync(`${__dirname}/../cert/ca-cert.pem`);
+  const rootCert = fs.readFileSync(`${__dirname}/${env.caCert}`);
   const sslCreds = credentials.createSsl(rootCert);
 
   const packageDefinition = await load([
@@ -58,9 +59,9 @@ export const loadProtobuf = async () => {
   const posProtoDescriptor = (loadPackageDefinition(packageDefinition) as unknown) as ProtoPos;
   const pos = posProtoDescriptor.pos;
 
-  hospitalizationClient = new hospital.CareStatus('localhost:9000', sslCreds);
-  newcaseClient = new newcase.CaseService('localhost:9000', sslCreds);
-  pcrDepClient = new pcr.PcrServiceDepartment('localhost:9090', sslCreds);
-  pcrRegClient = new pcr.PcrServiceRegion('localhost:9090', sslCreds);
-  posClient = new pos.PositivityRate('localhost:9090', sslCreds);
+  hospitalizationClient = new hospital.CareStatus(env.hospitalProtoAddr, sslCreds);
+  newcaseClient = new newcase.CaseService(env.hospitalProtoAddr, sslCreds);
+  pcrDepClient = new pcr.PcrServiceDepartment(env.pcrProtoAddr, sslCreds);
+  pcrRegClient = new pcr.PcrServiceRegion(env.pcrProtoAddr, sslCreds);
+  posClient = new pos.PositivityRate(env.pcrProtoAddr, sslCreds);
 }
