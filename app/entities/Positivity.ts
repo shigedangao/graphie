@@ -1,9 +1,9 @@
 import { Field, ObjectType } from "type-graphql";
-import { PositivityDayResult__Output } from "../proto/pos/PositivityDayResult";
 import { From } from ".";
+import { PositivityDayResult__Output } from "../proto/pos/PositivityDayResult";
 import { PositivityWeekCollection__Output } from "../proto/pos/PositivityWeekCollection";
 
-@ObjectType({ description: "Positivity cases" })
+@ObjectType({ description: "Positivity case per day" })
 export class Positivity implements From<PositivityDayResult__Output, Positivity> {
   @Field()
   department: string;
@@ -42,12 +42,7 @@ export class PositivityWeekly implements From<PositivityWeekCollection__Output, 
 
   from(input: PositivityWeekCollection__Output): PositivityWeekly {
     const self = new PositivityWeekly();
-
-    let rates = input.rates.map(p => {
-      let pos = new Positivity();
-      return pos.from(p);
-    });
-
+    const rates = input.rates.map(p => new Positivity().from(p));
 
     self.rates = rates;
     self.weekInfectionRate = input.weekInfectionRate;

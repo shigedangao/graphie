@@ -3,13 +3,18 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-"""Newcase model"""
+"""New case in the hospital for a given date"""
 type Case {
   date: String!
   death: Float!
   healed: Float!
   new_entry_hospital: Float!
   new_entry_icu: Float!
+}
+
+"""Collection of covid case in the hospital"""
+type CaseCollection {
+  cases: [Case!]!
 }
 
 input GraphPcrInputDep {
@@ -33,8 +38,8 @@ input GraphPositivityInput {
   year: Float!
 }
 
-"""Hospitalization model"""
-type Hospitalization {
+"""Detailed view of covid cases in a hospital"""
+type Hospital {
   age: Float!
   conventional_care: Float!
   day: String!
@@ -45,6 +50,11 @@ type Hospitalization {
   icu: Float!
   other_care_district: Float!
   region: Float!
+}
+
+"""Collection of hospital's data """
+type HospitalCollection {
+  cases: [Hospital!]!
 }
 
 input HospitalizationInput {
@@ -71,6 +81,34 @@ input IcuInput {
   year: Float!
 }
 
+"""Dataset which is mix of SI-DEP, VAC-SI & SI-VIC"""
+type Mix {
+  date: String!
+  death: Float!
+  hospitalEntry: Float!
+  hospitalEntryPcrPositive: Float!
+  icuEntry: Float!
+  icuEntryPcrPositive: Float!
+  pcrDone: Float!
+  pcrPositive: Float!
+  pcrPositiveDealth: Float!
+  pcrSymptom: Float!
+  pcrSymptomPositive: Float!
+  residentPopulation: Float!
+  vaxxStatus: String!
+}
+
+"""Collection of Mix dataset"""
+type MixCollection {
+  data: [Mix!]!
+}
+
+input MixInput {
+  day: Float
+  month: Float!
+  year: Float!
+}
+
 input NewCaseInput {
   day: Float
   department: String!
@@ -78,7 +116,7 @@ input NewCaseInput {
   year: Float!
 }
 
-"""Pcr case result"""
+"""PCR result per day"""
 type Pcr {
   age: Float!
   day: String!
@@ -94,7 +132,12 @@ type Pcr {
   totalPositivePcrTest: Float
 }
 
-"""Positivity cases"""
+"""Collection of PCR cases"""
+type PcrCollection {
+  data: [Pcr!]!
+}
+
+"""Positivity case per day"""
 type Positivity {
   day: String!
   department: String!
@@ -112,10 +155,11 @@ type PositivityWeekly {
 type Query {
   getFranceIcuLevelForNonVaxx(data: IcuInput!): IcuCollection
   getFranceIcuLevelForVaxx(data: IcuInput!): IcuCollection
-  getNewCaseByDepartment(data: NewCaseInput!): [Case!]
-  getPcrTestMadeByDepartment(data: GraphPcrInputDep!): [Pcr!]
-  getPcrTestMadeByRegion(data: GraphPcrInputReg!): [Pcr!]
+  getGlobalCovidDataByDate(data: MixInput!): MixCollection
+  getNewCaseByDepartment(data: NewCaseInput!): CaseCollection
+  getPcrTestMadeByDepartment(data: GraphPcrInputDep!): PcrCollection
+  getPcrTestMadeByRegion(data: GraphPcrInputReg!): PcrCollection
   getPositivityByDepartmentPerDay(data: GraphPositivityInput!): [Positivity!]
   getPositivityByDepartmentPerWeek(data: GraphPositivityInput!): PositivityWeekly
-  getStatusByRegion(data: HospitalizationInput!): [Hospitalization!]
+  getStatusByRegion(data: HospitalizationInput!): HospitalCollection
 }

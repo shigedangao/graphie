@@ -9,6 +9,7 @@ import { ProtoGrpcType as ProtoNewCase } from './proto/newcase';
 import { ProtoGrpcType as ProtoPcr } from './proto/pcr';
 import { ProtoGrpcType as ProtoPos } from './proto/positivity';
 import { ProtoGrpcType as ProtoIcu } from './proto/icu';
+import { ProtoGrpcType as ProtoMix } from './proto/mix';
 
 // Import proto service
 import { CareStatusClient } from './proto/hospital/CareStatus';
@@ -17,6 +18,7 @@ import { PcrServiceDepartmentClient } from './proto/pcr/PcrServiceDepartment';
 import { PcrServiceRegionClient } from './proto/pcr/PcrServiceRegion';
 import { PositivityRateClient } from './proto/pos/PositivityRate';
 import { IcuServiceClient } from './proto/icu/IcuService';
+import { MixServiceClient } from './proto/mix/MixService';
 
 // constant
 const PROTO_OPTION = {
@@ -33,6 +35,7 @@ export let pcrDepClient: PcrServiceDepartmentClient;
 export let pcrRegClient: PcrServiceRegionClient;
 export let posClient: PositivityRateClient;
 export let icuClient: IcuServiceClient;
+export let mixClient: MixServiceClient
 
 /**
  * Load Protobuf
@@ -65,11 +68,13 @@ export const loadProtobuf = async () => {
   const pcrProtoDescriptor = (loadPackageDefinition(packageDefinition) as unknown) as ProtoPcr;
   const posProtoDescriptor = (loadPackageDefinition(packageDefinition) as unknown) as ProtoPos;
   const icuProtoDescriptor = (loadPackageDefinition(packageDefinition) as unknown) as ProtoIcu;
+  const mixProtoDescriptor = (loadPackageDefinition(packageDefinition) as unknown) as ProtoMix;
 
   // hospital microservice
   hospitalizationClient = new hospitalProtoDescriptor.hospital.CareStatus(env.hospitalProtoAddr, sslCreds);
   newcaseClient = new newcaseProtoDescriptor.newcase.CaseService(env.hospitalProtoAddr, sslCreds);
   icuClient = new icuProtoDescriptor.icu.IcuService(env.hospitalProtoAddr, sslCreds);
+  mixClient = new mixProtoDescriptor.mix.MixService(env.hospitalProtoAddr, sslCreds);
 
   // pcr microservice
   pcrDepClient = new pcrProtoDescriptor.pcr.PcrServiceDepartment(env.pcrProtoAddr, sslCreds);

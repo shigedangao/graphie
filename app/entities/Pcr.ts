@@ -1,8 +1,9 @@
 import { Field, ObjectType } from "type-graphql";
 import { From } from ".";
+import { PcrOutput__Output } from "../proto/pcr/PcrOutput";
 import { PcrResult__Output } from "../proto/pcr/PcrResult";
 
-@ObjectType({ description: 'Pcr case result' })
+@ObjectType({ description: 'PCR result per day' })
 export class Pcr implements From<PcrResult__Output, Pcr> {
   @Field()
   day: string;
@@ -56,5 +57,19 @@ export class Pcr implements From<PcrResult__Output, Pcr> {
       self.populationByDepartment = input.populationByDepartment;
 
       return self;
+  }
+}
+
+@ObjectType({ description: "Collection of PCR cases" })
+export class PcrCollection implements From<PcrOutput__Output, PcrCollection> {
+  @Field(type => [Pcr])
+  data: Pcr[]
+
+  from(input: PcrOutput__Output): PcrCollection {
+    const self = new PcrCollection();
+    const data = input.pcr.map(p => new Pcr().from(p));
+    self.data = data;
+
+    return self;
   }
 }

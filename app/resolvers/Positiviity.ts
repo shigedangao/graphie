@@ -16,13 +16,13 @@ export class PositivityResolver {
   ): Promise<Positivity[]> {
     const payload: PositivityInput = {...args};
     const res: PositivityCollection__Output = await new Promise((resolve, reject) =>
-      posClient.getPositivityByDepartmentPerDay(payload, (err, res) => grpcCallback<PositivityCollection__Output>(err, res, resolve, reject))
+      posClient.getPositivityByDepartmentPerDay(
+        payload,
+        (err, res) => grpcCallback<PositivityCollection__Output>(err, res, resolve, reject)
+      )
     );
 
-    const pos = res.rates?.map((p: PositivityDayResult__Output) => {
-      let r = new Positivity()
-      return r.from(p);
-    });
+    const pos = res.rates?.map((p: PositivityDayResult__Output) => new Positivity().from(p));
 
     return pos;
   }
@@ -33,7 +33,10 @@ export class PositivityResolver {
   ): Promise<PositivityWeekly> {
     const payload: PositivityInput = {...args};
     const res: PositivityWeekCollection__Output = await new Promise((resolve, reject) =>
-      posClient.getPositivityByDepartmentPerWeek(payload, (err, res) => grpcCallback<PositivityWeekCollection__Output>(err, res, resolve, reject))
+      posClient.getPositivityByDepartmentPerWeek(
+        payload,
+        (err, res) => grpcCallback<PositivityWeekCollection__Output>(err, res, resolve, reject)
+      )
     );
 
     let pos = new PositivityWeekly();
