@@ -1,4 +1,4 @@
-// Original file: proto/newcase.proto
+// Original file: mask/proto/newcase.proto
 
 
 export interface CaseInput {

@@ -9,7 +9,7 @@
     "watch": "tsc-watch --onSuccess 'node dist/server.js'",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
-    "gen-proto": "./node_modules/@grpc/proto-loader/build/bin/proto-loader-gen-types.js --longs=Number --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=./app/proto/ ./proto/*.proto"
+    "gen-proto": "./node_modules/@grpc/proto-loader/build/bin/proto-loader-gen-types.js --longs=Number --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=./app/proto/ ./mask/proto/*.proto"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.4.5",

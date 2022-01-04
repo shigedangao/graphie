@@ -1,4 +1,4 @@
-// Original file: proto/hospitalization.proto
+// Original file: mask/proto/hospitalization.proto
 
 
 export interface CareStatusInput {

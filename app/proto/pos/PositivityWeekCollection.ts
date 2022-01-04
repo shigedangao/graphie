@@ -1,4 +1,4 @@
-// Original file: proto/positivity.proto
+// Original file: mask/proto/positivity.proto
 
 import type { PositivityDayResult as _pos_PositivityDayResult, PositivityDayResult__Output as _pos_PositivityDayResult__Output } from '../pos/PositivityDayResult';
 

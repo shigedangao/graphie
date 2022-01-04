@@ -54,6 +54,23 @@ input HospitalizationInput {
   year: Float!
 }
 
+"""Data in ICU for a specific date"""
+type Icu {
+  day: String!
+  rate: Float!
+}
+
+"""Collection of data in ICU"""
+type IcuCollection {
+  data: [Icu!]!
+}
+
+input IcuInput {
+  day: Float
+  month: Float!
+  year: Float!
+}
+
 input NewCaseInput {
   day: Float
   department: String!
@@ -93,6 +110,8 @@ type PositivityWeekly {
 }
 
 type Query {
+  getFranceIcuLevelForNonVaxx(data: IcuInput!): IcuCollection
+  getFranceIcuLevelForVaxx(data: IcuInput!): IcuCollection
   getNewCaseByDepartment(data: NewCaseInput!): [Case!]
   getPcrTestMadeByDepartment(data: GraphPcrInputDep!): [Pcr!]
   getPcrTestMadeByRegion(data: GraphPcrInputReg!): [Pcr!]

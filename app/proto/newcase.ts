@@ -10,8 +10,8 @@ type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> 
 export interface ProtoGrpcType {
   newcase: {
     CaseInput: MessageTypeDefinition
+    CaseResult: MessageTypeDefinition
     CaseService: SubtypeConstructor<typeof grpc.Client, _newcase_CaseServiceClient> & { service: _newcase_CaseServiceDefinition }
-    NewCase: MessageTypeDefinition
     NewCases: MessageTypeDefinition
   }
 }

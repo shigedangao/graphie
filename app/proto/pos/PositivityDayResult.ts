@@ -1,4 +1,4 @@
-// Original file: proto/positivity.proto
+// Original file: mask/proto/positivity.proto
 
 import type { Long } from '@grpc/proto-loader';
 

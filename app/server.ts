@@ -8,6 +8,7 @@ import { loadProtobuf } from './proto';
 import { PcrResolver } from './resolvers/Pcr';
 import { PositivityResolver } from './resolvers/Positiviity';
 import { loadEnv } from './env';
+import { IcuResolver } from './resolvers/Icu';
 
 const main = async () => {
   await loadEnv();
@@ -19,7 +20,8 @@ const main = async () => {
       HospitalizationResolver,
       NewcaseResolver,
       PcrResolver,
-      PositivityResolver
+      PositivityResolver,
+      IcuResolver
     ],
     emitSchemaFile: true,
     validate: false

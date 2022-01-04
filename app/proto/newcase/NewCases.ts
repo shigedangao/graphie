@@ -1,11 +1,11 @@
-// Original file: proto/newcase.proto
+// Original file: mask/proto/newcase.proto
 
-import type { NewCase as _newcase_NewCase, NewCase__Output as _newcase_NewCase__Output } from '../newcase/NewCase';
+import type { CaseResult as _newcase_CaseResult, CaseResult__Output as _newcase_CaseResult__Output } from '../newcase/CaseResult';
 
 export interface NewCases {
-  'cases'?: (_newcase_NewCase)[];
+  'cases'?: (_newcase_CaseResult)[];
 }
 
 export interface NewCases__Output {
-  'cases': (_newcase_NewCase__Output)[];
+  'cases': (_newcase_CaseResult__Output)[];
 }

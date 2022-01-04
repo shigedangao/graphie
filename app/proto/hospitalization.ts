@@ -12,7 +12,7 @@ export interface ProtoGrpcType {
     CareStatus: SubtypeConstructor<typeof grpc.Client, _hospital_CareStatusClient> & { service: _hospital_CareStatusDefinition }
     CareStatusInput: MessageTypeDefinition
     CareStatusOutput: MessageTypeDefinition
-    CareStatusPayload: MessageTypeDefinition
+    CareStatusResult: MessageTypeDefinition
   }
 }
 

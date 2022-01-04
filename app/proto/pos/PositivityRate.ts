@@ -1,4 +1,4 @@
-// Original file: proto/positivity.proto
+// Original file: mask/proto/positivity.proto
 
 import type * as grpc from '@grpc/grpc-js'
 import type { MethodDefinition } from '@grpc/proto-loader'

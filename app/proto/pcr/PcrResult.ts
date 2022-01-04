@@ -1,4 +1,4 @@
-// Original file: proto/pcr.proto
+// Original file: mask/proto/pcr.proto
 
 import type { Long } from '@grpc/proto-loader';
 
