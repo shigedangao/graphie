@@ -1,9 +1,10 @@
 import { Field, ObjectType } from "type-graphql";
 import { From } from ".";
-import { CareStatusPayload__Output } from "../proto/hospital/CareStatusPayload";
+import { CareStatusResult__Output } from "../proto/hospital/CareStatusResult";
+import { CareStatusOutput__Output } from "../proto/hospital/CareStatusOutput";
 
-@ObjectType({ description: 'Hospitalization model' })
-export class Hospitalization implements From<CareStatusPayload__Output, Hospitalization> {
+@ObjectType({ description: 'Detailed view of covid cases in a hospital' })
+export class Hospital implements From<CareStatusResult__Output, Hospital> {
   @Field()
   region: number;
 
@@ -34,8 +35,8 @@ export class Hospitalization implements From<CareStatusPayload__Output, Hospital
   @Field()
   day: string;
 
-  from(input: CareStatusPayload__Output): Hospitalization {
-    let self = new Hospitalization();
+  from(input: CareStatusResult__Output): Hospital {
+    let self = new Hospital();
     self.region = input.region;
     self.age = input.age;
     self.hospitalization = input.hospitalization;
@@ -46,6 +47,21 @@ export class Hospitalization implements From<CareStatusPayload__Output, Hospital
     self.conventional_care = input.conventionalCare;
     self.other_care_district = input.otherCareDistrict;
     self.day = input.day;
+
+    return self;
+  }
+}
+
+@ObjectType({ description: "Collection of hospital's data "})
+export class HospitalCollection implements From<CareStatusOutput__Output, HospitalCollection> {
+  @Field(type => [Hospital])
+  cases: Hospital[];
+
+  from(input: CareStatusOutput__Output): HospitalCollection {
+    const self = new HospitalCollection();
+    const cases = input.cases.map(h => new Hospital().from(h));
+
+    self.cases = cases;
 
     return self;
   }

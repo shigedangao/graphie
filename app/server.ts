@@ -4,10 +4,12 @@ import 'reflect-metadata';
 import { buildSchema } from 'type-graphql';
 import { HospitalizationResolver } from './resolvers/Hospitalization';
 import { NewcaseResolver } from './resolvers/Newcase';
-import { loadProtobuf } from './proto';
+import { loadProtobuf, mixClient } from './proto';
 import { PcrResolver } from './resolvers/Pcr';
 import { PositivityResolver } from './resolvers/Positiviity';
 import { loadEnv } from './env';
+import { IcuResolver } from './resolvers/Icu';
+import { MixResolver } from './resolvers/Mix';
 
 const main = async () => {
   await loadEnv();
@@ -19,7 +21,9 @@ const main = async () => {
       HospitalizationResolver,
       NewcaseResolver,
       PcrResolver,
-      PositivityResolver
+      PositivityResolver,
+      IcuResolver,
+      MixResolver
     ],
     emitSchemaFile: true,
     validate: false

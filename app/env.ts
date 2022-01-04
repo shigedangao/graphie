@@ -8,7 +8,8 @@ config();
 export const env = {
   hospitalProtoAddr: '',
   pcrProtoAddr: '',
-  caCert: ''
+  caCert: '',
+  protoPath: ''
 };
 
 /**
@@ -21,6 +22,7 @@ export const loadEnv = async () => {
   env.hospitalProtoAddr = await getEnv('HOSPITAL_PROTO_ADDRESS');
   env.pcrProtoAddr = await getEnv('PCR_PROTO_ADDRESS');
   env.caCert = await getEnv('CA_CERT');
+  env.protoPath = await getEnv('PROTO_PATH');
 
   return env;
 }
