@@ -1,9 +1,9 @@
-name: deploy preprod
+name: deploy prod
 
 on:
   push:
     branches:
-      - staging
+      - main
 
 jobs:
   build:
@@ -26,13 +26,13 @@ jobs:
         run: |-
           git_hash=$(git rev-parse --short "$GITHUB_SHA")
           gcloud builds submit \
-            --substitutions=_LOCATION="europe-west1",_REPOSITORY="graphie",_IMAGE="graphie_staging",_SHA=$git_hash
+            --substitutions=_LOCATION="europe-west1",_REPOSITORY="graphie",_IMAGE="graphie",_SHA=$git_hash
 
   dispatch:
     needs: ["build"]
-    uses: shigedangao/graphie/.github/workflows/reusable-dispatch.yaml@staging
+    uses: shigedangao/graphie/.github/workflows/reusable-dispatch.yaml@main
     with:
       app_name: graphie
-      env: preprod
+      env: prod
     secrets:
       token: ${{ secrets.GRAPHIE_TOKEN }}
