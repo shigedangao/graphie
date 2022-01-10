@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import Express from 'express';
+import cors from 'cors';
 import 'reflect-metadata';
 import { buildSchema } from 'type-graphql';
 import { HospitalizationResolver } from './resolvers/Hospitalization';
@@ -35,6 +36,10 @@ const main = async () => {
   });
 
   const app = Express();
+
+  app.use(cors({
+    origin: '*'
+  }));
 
   app.get('/', (_, res) => res.send('hello'))
 
