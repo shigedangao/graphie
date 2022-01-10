@@ -3,6 +3,6 @@ import { CommonField } from "./common-input";
 
 @InputType()
 export class HospitalizationInput extends CommonField {
-  @Field()
+  @Field({ description: "Region code .e.g: 11" })
   region: number;
 }
