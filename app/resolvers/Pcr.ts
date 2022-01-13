@@ -5,11 +5,10 @@ import {
   GraphPcrInputReg,
   GraphPcrInputCountry
 } from "./types/pcr-input";
-import { PcrInputDepartment } from "../proto/pcr/PcrInputDepartment";
+import { PcrInput } from "../proto/pcr/PcrInput";
 import { pcrClient } from "../proto";
 import { grpcCallback } from "../utils";
 import { PcrOutput__Output } from "../proto/pcr/PcrOutput";
-import { PcrInputRegion } from "../proto/pcr/PcrInputRegion";
 
 @Resolver()
 export class PcrResolver {
@@ -17,7 +16,7 @@ export class PcrResolver {
   async getPcrTestMadeByDepartment(
     @Arg('data') arg: GraphPcrInputDep
   ): Promise<PcrCollection> {
-    const payload: PcrInputDepartment = {...arg};
+    const payload: PcrInput = {...arg};
     const res: PcrOutput__Output = await new Promise((resolve, reject) =>
       pcrClient.getPcrTestMadeByDepartment(
         payload,
@@ -33,7 +32,7 @@ export class PcrResolver {
   async getPcrTestMadeByRegion(
     @Arg('data') arg: GraphPcrInputReg
   ): Promise<PcrCollection> {
-    const payload: PcrInputRegion = {...arg};
+    const payload: PcrInput = {...arg};
     const res: PcrOutput__Output = await new Promise((resolve, reject) =>
       pcrClient.getPcrTestMadeByRegion(
         payload,
@@ -49,7 +48,7 @@ export class PcrResolver {
   async getPcrTestCountry(
     @Arg('data') arg: GraphPcrInputCountry
   ): Promise<PcrCollection> {
-    const payload: PcrInputRegion = {...arg};
+    const payload: PcrInput = {...arg};
     const res: PcrOutput__Output = await new Promise((resolve, reject) =>
       pcrClient.getPcrTestMadeCountry(
         payload,
