@@ -12,3 +12,6 @@ export class GraphPcrInputReg extends CommonField {
   @Field({ description: "Region code .e.g: 11" })
   region: number;
 }
+
+@InputType()
+export class GraphPcrInputCountry extends CommonField{}

@@ -5,9 +5,9 @@
 
 """New case in the hospital for a given date"""
 type Case {
+  backHome: Float!
   date: String!
   death: Float!
-  healed: Float!
   new_entry_hospital: Float!
   new_entry_icu: Float!
 }
@@ -17,35 +17,67 @@ type CaseCollection {
   cases: [Case!]!
 }
 
-input GraphPcrInputDep {
+input GraphPcrInputCountry {
+  """Day of the week, .e.g, 1"""
   day: Float
-  department: String!
+
+  """Number of month .e.g: 2"""
   month: Float!
+
+  """Year .e.g: 2022"""
+  year: Float!
+}
+
+input GraphPcrInputDep {
+  """Day of the week, .e.g, 1"""
+  day: Float
+
+  """Number of department in string format .e.g: 77"""
+  department: String!
+
+  """Number of month .e.g: 2"""
+  month: Float!
+
+  """Year .e.g: 2022"""
   year: Float!
 }
 
 input GraphPcrInputReg {
+  """Day of the week, .e.g, 1"""
   day: Float
+
+  """Number of month .e.g: 2"""
   month: Float!
+
+  """Region code .e.g: 11"""
   region: Float!
+
+  """Year .e.g: 2022"""
   year: Float!
 }
 
 input GraphPositivityInput {
+  """Day of the week, .e.g, 1"""
   day: Float
+
+  """Number of department in string format .e.g: 77"""
   department: String!
+
+  """Number of month .e.g: 2"""
   month: Float!
+
+  """Year .e.g: 2022"""
   year: Float!
 }
 
 """Detailed view of covid cases in a hospital"""
 type Hospital {
   age: Float!
+  backHome: Float!
   conventional_care: Float!
   day: String!
   death: Float!
   different_care_services: Float!
-  healed: Float!
   hospitalization: Float!
   icu: Float!
   other_care_district: Float!
@@ -58,9 +90,16 @@ type HospitalCollection {
 }
 
 input HospitalizationInput {
+  """Day of the week, .e.g, 1"""
   day: Float
+
+  """Number of month .e.g: 2"""
   month: Float!
+
+  """Region code .e.g: 11"""
   region: Float!
+
+  """Year .e.g: 2022"""
   year: Float!
 }
 
@@ -76,8 +115,46 @@ type IcuCollection {
 }
 
 input IcuInput {
+  """Day of the week, .e.g, 1"""
   day: Float
+
+  """Number of month .e.g: 2"""
   month: Float!
+
+  """Year .e.g: 2022"""
+  year: Float!
+}
+
+"""Level in the hospital per department, per age and per sex"""
+type Level {
+  backHome: Float!
+  conventionalCare: Float!
+  date: String!
+  death: Float!
+  department: String!
+  differentCareServices: Float!
+  hospitalization: Float!
+  icu: Float!
+  otherCareServices: Float!
+  sex: String!
+}
+
+"""Collection of hospital data per department, per sex and per age"""
+type LevelCollection {
+  cases: [Level!]!
+}
+
+input LevelInput {
+  """Day of the week, .e.g, 1"""
+  day: Float
+
+  """Department .e.g: '77'"""
+  department: String!
+
+  """Number of month .e.g: 2"""
+  month: Float!
+
+  """Year .e.g: 2022"""
   year: Float!
 }
 
@@ -104,15 +181,27 @@ type MixCollection {
 }
 
 input MixInput {
+  """Day of the week, .e.g, 1"""
   day: Float
+
+  """Number of month .e.g: 2"""
   month: Float!
+
+  """Year .e.g: 2022"""
   year: Float!
 }
 
 input NewCaseInput {
+  """Day of the week, .e.g, 1"""
   day: Float
+
+  """Number of department in string format .e.g: 77"""
   department: String!
+
+  """Number of month .e.g: 2"""
   month: Float!
+
+  """Year .e.g: 2022"""
   year: Float!
 }
 
@@ -156,7 +245,9 @@ type Query {
   getFranceIcuLevelForNonVaxx(data: IcuInput!): IcuCollection
   getFranceIcuLevelForVaxx(data: IcuInput!): IcuCollection
   getGlobalCovidDataByDate(data: MixInput!): MixCollection
+  getHospitalLevelByDepartment(data: LevelInput!): LevelCollection
   getNewCaseByDepartment(data: NewCaseInput!): CaseCollection
+  getPcrTestCountry(data: GraphPcrInputCountry!): PcrCollection
   getPcrTestMadeByDepartment(data: GraphPcrInputDep!): PcrCollection
   getPcrTestMadeByRegion(data: GraphPcrInputReg!): PcrCollection
   getPositivityByDepartmentPerDay(data: GraphPositivityInput!): [Positivity!]
