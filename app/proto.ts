@@ -14,11 +14,11 @@ import { ProtoGrpcType as ProtoMix } from './proto/mix';
 // Import proto service
 import { CareStatusClient } from './proto/hospital/CareStatus';
 import { CaseServiceClient } from './proto/newcase/CaseService';
-import { PcrServiceDepartmentClient } from './proto/pcr/PcrServiceDepartment';
-import { PcrServiceRegionClient } from './proto/pcr/PcrServiceRegion';
+import { PcrServiceClient } from './proto/pcr/PcrService';
 import { PositivityRateClient } from './proto/pos/PositivityRate';
 import { IcuServiceClient } from './proto/icu/IcuService';
 import { MixServiceClient } from './proto/mix/MixService';
+import { LevelServiceClient } from './proto/hospital/LevelService';
 
 // constant
 const PROTO_OPTION = {
@@ -30,9 +30,9 @@ const PROTO_OPTION = {
 
 // global variable
 export let hospitalizationClient: CareStatusClient;
+export let levelClient: LevelServiceClient;
 export let newcaseClient: CaseServiceClient;
-export let pcrDepClient: PcrServiceDepartmentClient;
-export let pcrRegClient: PcrServiceRegionClient;
+export let pcrClient: PcrServiceClient;
 export let posClient: PositivityRateClient;
 export let icuClient: IcuServiceClient;
 export let mixClient: MixServiceClient
@@ -72,12 +72,12 @@ export const loadProtobuf = async () => {
 
   // hospital microservice
   hospitalizationClient = new hospitalProtoDescriptor.hospital.CareStatus(env.hospitalProtoAddr, sslCreds);
+  levelClient = new hospitalProtoDescriptor.hospital.LevelService(env.hospitalProtoAddr, sslCreds);
   newcaseClient = new newcaseProtoDescriptor.newcase.CaseService(env.hospitalProtoAddr, sslCreds);
   icuClient = new icuProtoDescriptor.icu.IcuService(env.hospitalProtoAddr, sslCreds);
   mixClient = new mixProtoDescriptor.mix.MixService(env.hospitalProtoAddr, sslCreds);
 
   // pcr microservice
-  pcrDepClient = new pcrProtoDescriptor.pcr.PcrServiceDepartment(env.pcrProtoAddr, sslCreds);
-  pcrRegClient = new pcrProtoDescriptor.pcr.PcrServiceRegion(env.pcrProtoAddr, sslCreds);
+  pcrClient = new pcrProtoDescriptor.pcr.PcrService(env.pcrProtoAddr, sslCreds);
   posClient = new posProtoDescriptor.pos.PositivityRate(env.pcrProtoAddr, sslCreds);
 }

@@ -18,7 +18,7 @@ export class Case implements From<CaseResult__Output, Case> {
   death: number;
 
   @Field()
-  healed: number;
+  backHome: number;
 
   from(input: CaseResult__Output): Case {
     let self = new Case();
@@ -26,7 +26,7 @@ export class Case implements From<CaseResult__Output, Case> {
     self.new_entry_hospital = input.newEntryHospital;
     self.new_entry_icu = input.newEntryIcu
     self.death = input.death;
-    self.healed = input.healed;
+    self.backHome = input.backHome;
 
     return self;
   }
