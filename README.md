@@ -1,15 +1,18 @@
-# Graphie (wip)
+# Graphie
 
-Just a GraphQL server which interact with the mask repository which contains a set of gRPC server
+Graphie is a GraphQL server which exposes the data provided by the [gRPC server](https://github.com/shigedangao/mask)
 
 ## Local dev
 
-1. Clone this repository and run the command
+To configure the project on your device. You may follow these steps:
 
-```bash
-npm install
-```
+1. Clone this repository
+2. Clone the submodule from this repository
+3. Install the dependencies with the command ```npm install```
+4. Generate the TS file from the gRPC schema with the command ```npm run gen-proto```
 
-2. Clone the mask repository & follow the installation guide of the mask repository.
+### Mask
 
-3. Launch one of the microservices in the mask repository
+Mask is the repository which contains the protobuf files and grpc server. You may follow the readme guide for the setup in local env. (Docker config is recommended)
+
+5. Once this is done. You may run the project with the command ```npm run watch```
