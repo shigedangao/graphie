@@ -16,3 +16,7 @@ To configure the project on your device. You may follow these steps:
 Mask is the repository which contains the protobuf files and grpc server. You may follow the readme guide for the setup in local env. (Docker config is recommended)
 
 5. Once this is done. You may run the project with the command ```npm run watch```
+
+## Give it a try !
+
+Thanks to GraphQL & Apollo. You can easily try the GraphQL API by using this [endpoint](https://preprod.covid19data.fr/graphql)
