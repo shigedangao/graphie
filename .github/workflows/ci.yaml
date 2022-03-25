@@ -1,0 +1,17 @@
+name: ci
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+      - name: install package
+        run: npm install
+      - name: generate protobuf
+        run: npm run gen-proto
+      - name: run tests
+        run: npm run test
