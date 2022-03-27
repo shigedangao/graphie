@@ -1,33 +1,5 @@
-import { ApolloServer, gql } from 'apollo-server';
-import { loadProtobuf } from '../../app/proto'
-import { loadEnv } from '../../app/env';
-import { promisify } from 'util';
-import fs from 'fs';
+import { setupTestServer } from '../config'
 import 'reflect-metadata'
-
-const importSchema = async (): Promise<String> => {
-    const read = promisify(fs.readFile);
-    const res = await read(`${__dirname}/../../schema.gql`);
-
-    return res.toString();
-}
-
-/**
- * Server for testing the client
- */
-const setupTestServer = async (): Promise<ApolloServer> => {
-    await loadEnv();
-    await loadProtobuf();
-    const schema = await importSchema();
-    const typeDefs = gql`${schema}`;
-
-    const server = new ApolloServer({
-        typeDefs,
-        mocks: true
-    });
-
-    return server;
-}
 
 describe('Hospital queries', () => {
     let server;

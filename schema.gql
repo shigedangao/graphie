@@ -96,14 +96,8 @@ type IcuCollection {
 }
 
 input IcuInput {
-  """Day of the week, .e.g, 1"""
-  day: Float
-
-  """Number of month .e.g: 2"""
-  month: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
+  """Date"""
+  date: CommonField!
 }
 
 """Level in the hospital per department, per age and per sex"""
@@ -156,14 +150,8 @@ type MixCollection {
 }
 
 input MixInput {
-  """Day of the week, .e.g, 1"""
-  day: Float
-
-  """Number of month .e.g: 2"""
-  month: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
+  """Date"""
+  date: CommonField!
 }
 
 input NewCaseInput {
