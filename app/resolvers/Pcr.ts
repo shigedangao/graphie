@@ -7,8 +7,8 @@ import {
 } from "./types/pcr-input";
 import { PcrInput } from "../proto/pcr/PcrInput";
 import { pcrClient } from "../proto";
-import { grpcCallback } from "../utils";
 import { PcrOutput__Output } from "../proto/pcr/PcrOutput";
+import { promisify } from "util";
 
 @Resolver()
 export class PcrResolver {
@@ -16,13 +16,10 @@ export class PcrResolver {
   async getPcrTestMadeByDepartment(
     @Arg('data') arg: GraphPcrInputDep
   ): Promise<PcrCollection> {
-    const payload: PcrInput = {...arg};
-    const res: PcrOutput__Output = await new Promise((resolve, reject) =>
-      pcrClient.getPcrTestMadeByDepartment(
-        payload,
-        (err, res) => grpcCallback<PcrOutput__Output>(err, res, resolve, reject)
-      )
-    );
+    const input: PcrInput = {...arg};
+
+    const handler = promisify(pcrClient.getPcrTestMadeByDepartment).bind(pcrClient);
+    const res: PcrOutput__Output = await handler(input);
 
     const collection = new PcrCollection().from(res);
     return collection;
@@ -32,13 +29,10 @@ export class PcrResolver {
   async getPcrTestMadeByRegion(
     @Arg('data') arg: GraphPcrInputReg
   ): Promise<PcrCollection> {
-    const payload: PcrInput = {...arg};
-    const res: PcrOutput__Output = await new Promise((resolve, reject) =>
-      pcrClient.getPcrTestMadeByRegion(
-        payload,
-        (err, res) => grpcCallback<PcrOutput__Output>(err, res, resolve, reject)
-      )
-    );
+    const input: PcrInput = {...arg};
+
+    const handler = promisify(pcrClient.getPcrTestMadeByRegion).bind(pcrClient);
+    const res: PcrOutput__Output = await handler(input);
 
     const collection = new PcrCollection().from(res);
     return collection;
@@ -48,13 +42,10 @@ export class PcrResolver {
   async getPcrTestCountry(
     @Arg('data') arg: GraphPcrInputCountry
   ): Promise<PcrCollection> {
-    const payload: PcrInput = {...arg};
-    const res: PcrOutput__Output = await new Promise((resolve, reject) =>
-      pcrClient.getPcrTestMadeCountry(
-        payload,
-        (err, res) => grpcCallback<PcrOutput__Output>(err, res, resolve, reject)
-      )
-    );
+    const input: PcrInput = {...arg};
+
+    const handler = promisify(pcrClient.getPcrTestMadeCountry).bind(pcrClient);
+    const res: PcrOutput__Output = await handler(input);
 
     const collection = new PcrCollection().from(res);
     return collection;
