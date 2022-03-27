@@ -1,5 +1,7 @@
 # Graphie
 
+[![ci](https://github.com/shigedangao/graphie/actions/workflows/ci.yaml/badge.svg)](https://github.com/shigedangao/graphie/actions/workflows/ci.yaml)
+
 Graphie is a GraphQL server which exposes the data provided by the [gRPC server](https://github.com/shigedangao/mask)
 
 ## Local dev

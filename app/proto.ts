@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { env } from './env';
-import { loadPackageDefinition, credentials } from '@grpc/grpc-js';
+import { loadPackageDefinition, credentials, ChannelCredentials } from '@grpc/grpc-js';
 import { load } from '@grpc/proto-loader';
 
 // Improt proto type
@@ -43,9 +43,6 @@ export let mixClient: MixServiceClient
  * @return {Promise}
  */
 export const loadProtobuf = async () => {
-  const rootCert = fs.readFileSync(`${__dirname}/${env.caCert}`);
-  const sslCreds = credentials.createSsl(rootCert);
-
   // proto path
   const HOSPITAL_PROTO_PATH = `${__dirname}/${env.protoPath}/hospitalization.proto`;
   const NEWCASE_PROTO_PATH = `${__dirname}/${env.protoPath}/newcase.proto`;
@@ -71,13 +68,14 @@ export const loadProtobuf = async () => {
   const mixProtoDescriptor = (loadPackageDefinition(packageDefinition) as unknown) as ProtoMix;
 
   // hospital microservice
-  hospitalizationClient = new hospitalProtoDescriptor.hospital.CareStatus(env.hospitalProtoAddr, sslCreds);
-  levelClient = new hospitalProtoDescriptor.hospital.LevelService(env.hospitalProtoAddr, sslCreds);
-  newcaseClient = new newcaseProtoDescriptor.newcase.CaseService(env.hospitalProtoAddr, sslCreds);
-  icuClient = new icuProtoDescriptor.icu.IcuService(env.hospitalProtoAddr, sslCreds);
-  mixClient = new mixProtoDescriptor.mix.MixService(env.hospitalProtoAddr, sslCreds);
+  const insecureChannel = ChannelCredentials.createInsecure();
+  hospitalizationClient = new hospitalProtoDescriptor.hospital.CareStatus(env.hospitalProtoAddr, insecureChannel);
+  levelClient = new hospitalProtoDescriptor.hospital.LevelService(env.hospitalProtoAddr, insecureChannel);
+  newcaseClient = new newcaseProtoDescriptor.newcase.CaseService(env.hospitalProtoAddr, insecureChannel);
+  icuClient = new icuProtoDescriptor.icu.IcuService(env.hospitalProtoAddr, insecureChannel);
+  mixClient = new mixProtoDescriptor.mix.MixService(env.hospitalProtoAddr, insecureChannel);
 
   // pcr microservice
-  pcrClient = new pcrProtoDescriptor.pcr.PcrService(env.pcrProtoAddr, sslCreds);
-  posClient = new posProtoDescriptor.pos.PositivityRate(env.pcrProtoAddr, sslCreds);
+  pcrClient = new pcrProtoDescriptor.pcr.PcrService(env.pcrProtoAddr, insecureChannel);
+  posClient = new posProtoDescriptor.pos.PositivityRate(env.pcrProtoAddr, insecureChannel);
 }

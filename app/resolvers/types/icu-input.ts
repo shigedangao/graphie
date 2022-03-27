@@ -1,5 +1,8 @@
-import { InputType } from "type-graphql";
+import { InputType, Field } from "type-graphql";
 import { CommonField } from "./common-input";
 
 @InputType()
-export class IcuInput extends CommonField {}
+export class IcuInput {
+    @Field({ description: "Date" })
+    date: CommonField;  
+}

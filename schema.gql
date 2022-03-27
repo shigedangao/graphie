@@ -17,7 +17,7 @@ type CaseCollection {
   cases: [Case!]!
 }
 
-input GraphPcrInputCountry {
+input CommonField {
   """Day of the week, .e.g, 1"""
   day: Float
 
@@ -26,48 +26,35 @@ input GraphPcrInputCountry {
 
   """Year .e.g: 2022"""
   year: Float!
+}
+
+input GraphPcrInputCountry {
+  """Date"""
+  date: CommonField!
 }
 
 input GraphPcrInputDep {
-  """Day of the week, .e.g, 1"""
-  day: Float
+  """Date"""
+  date: CommonField!
 
   """Number of department in string format .e.g: 77"""
   department: String!
-
-  """Number of month .e.g: 2"""
-  month: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
 }
 
 input GraphPcrInputReg {
-  """Day of the week, .e.g, 1"""
-  day: Float
-
-  """Number of month .e.g: 2"""
-  month: Float!
+  """Date"""
+  date: CommonField!
 
   """Region code .e.g: 11"""
   region: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
 }
 
 input GraphPositivityInput {
-  """Day of the week, .e.g, 1"""
-  day: Float
+  """Date"""
+  date: CommonField!
 
   """Number of department in string format .e.g: 77"""
   department: String!
-
-  """Number of month .e.g: 2"""
-  month: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
 }
 
 """Detailed view of covid cases in a hospital"""
@@ -90,17 +77,11 @@ type HospitalCollection {
 }
 
 input HospitalizationInput {
-  """Day of the week, .e.g, 1"""
-  day: Float
-
-  """Number of month .e.g: 2"""
-  month: Float!
+  """Date"""
+  date: CommonField!
 
   """Region code .e.g: 11"""
   region: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
 }
 
 """Data in ICU for a specific date"""
@@ -115,14 +96,8 @@ type IcuCollection {
 }
 
 input IcuInput {
-  """Day of the week, .e.g, 1"""
-  day: Float
-
-  """Number of month .e.g: 2"""
-  month: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
+  """Date"""
+  date: CommonField!
 }
 
 """Level in the hospital per department, per age and per sex"""
@@ -145,17 +120,11 @@ type LevelCollection {
 }
 
 input LevelInput {
-  """Day of the week, .e.g, 1"""
-  day: Float
+  """Date"""
+  date: CommonField!
 
   """Department .e.g: '77'"""
   department: String!
-
-  """Number of month .e.g: 2"""
-  month: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
 }
 
 """Dataset which is mix of SI-DEP, VAC-SI & SI-VIC"""
@@ -181,28 +150,16 @@ type MixCollection {
 }
 
 input MixInput {
-  """Day of the week, .e.g, 1"""
-  day: Float
-
-  """Number of month .e.g: 2"""
-  month: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
+  """Date"""
+  date: CommonField!
 }
 
 input NewCaseInput {
-  """Day of the week, .e.g, 1"""
-  day: Float
+  """Date"""
+  date: CommonField!
 
   """Number of department in string format .e.g: 77"""
   department: String!
-
-  """Number of month .e.g: 2"""
-  month: Float!
-
-  """Year .e.g: 2022"""
-  year: Float!
 }
 
 """PCR result per day"""

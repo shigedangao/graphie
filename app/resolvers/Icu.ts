@@ -3,8 +3,8 @@ import { IcuInput } from "./types/icu-input";
 import { IcuCollection } from "../entities/Icu";
 import { IcuInput as ProtoIcuInput } from "../proto/icu/IcuInput";
 import { icuClient } from "../proto";
-import { grpcCallback } from "../utils";
 import { IcuOutput__Output } from "../proto/icu/IcuOutput";
+import { promisify } from "util";
 
 @Resolver()
 export class IcuResolver {
@@ -13,12 +13,9 @@ export class IcuResolver {
     @Arg('data') arg: IcuInput
   ): Promise<IcuCollection> {
     const input: ProtoIcuInput = {...arg};
-    const res: IcuOutput__Output = await new Promise((resolve, reject) =>
-      icuClient.getFranceIcuLevelForNonVaxx(
-        input,
-        (err, res) => grpcCallback<IcuOutput__Output>(err, res, resolve, reject)
-      )
-    );
+
+    const handler = promisify(icuClient.getFranceIcuLevelForNonVaxx).bind(icuClient);
+    const res: IcuOutput__Output = await handler(input);
 
     const icuCollection = new IcuCollection().from(res);
     return icuCollection;
@@ -29,12 +26,9 @@ export class IcuResolver {
     @Arg('data') arg: IcuInput
   ): Promise<IcuCollection> {
     const input: ProtoIcuInput = {...arg};
-    const res: IcuOutput__Output = await new Promise((resolve, reject) =>
-      icuClient.getFranceIcuLevelForVaxx(
-        input,
-        (err, res) => grpcCallback<IcuOutput__Output>(err, res, resolve, reject)
-      )
-    );
+
+    const handler = promisify(icuClient.getFranceIcuLevelForVaxx).bind(icuClient);
+    const res: IcuOutput__Output = await handler(input);
 
     const icuCollection = new IcuCollection().from(res);
     return icuCollection;

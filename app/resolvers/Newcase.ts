@@ -3,8 +3,8 @@ import { NewCaseInput } from "./types/cases-input";
 import { CaseCollection } from "../entities/Case";
 import { CaseInput } from "../proto/newcase/CaseInput";
 import { newcaseClient } from "../proto";
-import { grpcCallback } from "../utils";
 import { NewCases__Output } from "../proto/newcase/NewCases";
+import { promisify } from "util";
 
 @Resolver()
 export class NewcaseResolver {
@@ -12,12 +12,10 @@ export class NewcaseResolver {
   async getNewCaseByDepartment(
     @Arg('data') arg: NewCaseInput
   ): Promise<CaseCollection> {
-    const payload: CaseInput = {...arg};
-    const res: NewCases__Output = await new Promise((resolve, reject) =>
-      newcaseClient.getNewCaseByDepartment(
-        payload,
-        (err, res) => grpcCallback<NewCases__Output>(err, res, resolve, reject))
-    );
+    const input: CaseInput = {...arg};
+
+    const handler = promisify(newcaseClient.getNewCaseByDepartment).bind(newcaseClient);
+    const res: NewCases__Output = await handler(input);
 
     const caseCollection = new CaseCollection().from(res);
     return caseCollection;

@@ -4,9 +4,9 @@ import { GraphPositivityInput } from "./types/positivity-input";
 import { PositivityInput } from "../proto/pos/PositivityInput";
 import { PositivityCollection__Output } from "../proto/pos/PositivityCollection";
 import { posClient } from "../proto";
-import { grpcCallback } from "../utils";
 import { PositivityDayResult__Output } from "../proto/pos/PositivityDayResult";
 import { PositivityWeekCollection__Output } from "../proto/pos/PositivityWeekCollection";
+import { promisify } from "util";
 
 @Resolver()
 export class PositivityResolver {
@@ -14,13 +14,10 @@ export class PositivityResolver {
   async getPositivityByDepartmentPerDay(
     @Arg('data') args: GraphPositivityInput
   ): Promise<Positivity[]> {
-    const payload: PositivityInput = {...args};
-    const res: PositivityCollection__Output = await new Promise((resolve, reject) =>
-      posClient.getPositivityByDepartmentPerDay(
-        payload,
-        (err, res) => grpcCallback<PositivityCollection__Output>(err, res, resolve, reject)
-      )
-    );
+    const input: PositivityInput = {...args};
+
+    const handler = promisify(posClient.getPositivityByDepartmentPerDay).bind(posClient);
+    const res: PositivityCollection__Output = await handler(input);
 
     const pos = res.rates?.map((p: PositivityDayResult__Output) => new Positivity().from(p));
 
@@ -31,13 +28,10 @@ export class PositivityResolver {
   async getPositivityByDepartmentPerWeek(
     @Arg('data') args: GraphPositivityInput
   ): Promise<PositivityWeekly> {
-    const payload: PositivityInput = {...args};
-    const res: PositivityWeekCollection__Output = await new Promise((resolve, reject) =>
-      posClient.getPositivityByDepartmentPerWeek(
-        payload,
-        (err, res) => grpcCallback<PositivityWeekCollection__Output>(err, res, resolve, reject)
-      )
-    );
+    const input: PositivityInput = {...args};
+
+    const handler = promisify(posClient.getPositivityByDepartmentPerWeek).bind(posClient);
+    const res: PositivityWeekCollection__Output = await handler(input);
 
     let pos = new PositivityWeekly();
     pos = pos.from(res);
